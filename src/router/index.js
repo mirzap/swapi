@@ -1,15 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import SettingsPage from '@/components/SettingsPage'
+import ResidentsPage from '@/components/ResidentsPage'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  linkActiveClass: 'active',
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      redirect: '/residents'
+    },
+    {
+      path: '/residents',
+      name: 'residents',
+      component: ResidentsPage
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsPage
     }
   ]
 })
