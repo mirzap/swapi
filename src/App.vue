@@ -51,6 +51,7 @@ export default class App extends Vue {}
     background: #FFF;
     box-shadow: 0 2px 6px rgba(0,0,0,.04);
     border-radius: 6px;
+    min-height: 300px;
   }
 }
 #app {
