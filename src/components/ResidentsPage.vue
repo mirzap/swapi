@@ -4,64 +4,74 @@
       <template v-if="!loading">
         <h4>Showing residents of planet {{planet.name}}</h4>
 
-        <ul>
-          <li v-for="(resident,key) in residents" v-bind:key="key">{{resident.name}}</li>
-        </ul>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Height</th>
+            <th scope="col">Weight</th>
+            <th scope="col" style="text-align: left">Hair Color</th>
+            <th scope="col">Species</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(resident,key) in residents" v-bind:key="key">
+            <td>{{resident.name}}</td>
+            <td>{{resident.height}}</td>
+            <td>{{resident.mass}}</td>
+            <td style="text-align: left">
+              <span class="color"></span>
+              {{resident.hair_color}}
+            </td>
+            <td>x</td>
+          </tr>
+          </tbody>
+        </table>
       </template>
     </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import _ from 'lodash'
 import Component from 'vue-class-component'
+import {mapState, mapGetters, mapActions} from 'vuex'
 import Loader from 'vue-spinner/src/PulseLoader.vue'
 
+// App components
 import Layout from '@/components/Layout'
-import {planets} from '@/api/planets'
-import {default as api, concurrent} from '@/api/api'
 
 @Component({
   name: 'ResidentsPage',
-  components: { Layout, Loader }
+  components: { Layout, Loader },
+  computed: {
+    ...mapState({
+      planet: state => state.planet,
+      loading: state => state.loading
+    }),
+    ...mapGetters({
+      residents: 'getResidents'
+    })
+  },
+  methods: {
+    ...mapActions({
+      getResidentsOf: 'fetchResidentsOf'
+    })
+  }
 })
 export default class ResidentsPage extends Vue {
-  loading = true;
-  planet = {}
-  callbacks = []
-  residents = []
-
-  mounted () {
-    planets.getPlanet(1)
-      .then(r => {
-        console.log(r.data)
-        this.planet = r.data
-        return r.data
-      })
-      .then(r => {
-        let res = r.residents
-        let self = this
-
-        _.each(res, function (resident) {
-          self.callbacks.push(api.get(resident))
-        })
-      })
-      .then(() => {
-        concurrent(this.callbacks)
-          .then(r => {
-            let self = this
-            _.each(r, (d) => {
-              self.residents.push(d.data)
-            })
-          })
-          .then(() => {
-            this.loading = false
-          })
-      })
+  created () {
+    this.getResidentsOf(1)
   }
+  mounted () {}
 }
 </script>
 
 <style scoped>
-
+  .color {
+    width: 20px;
+    height: 20px;
+    background: red;
+    display: inline-block;
+    vertical-align: text-top;
+  }
 </style>
