@@ -10,5 +10,10 @@ export default {
   },
   [type.RECEIVE_RESIDENTS] (state, residents) {
     state.residents = residents
+  },
+  [type.LOAD_RESIDENT_SPECIES] (state, residentSpecies) {
+    console.log('MUTATION')
+    console.log(residentSpecies)
+    state.residentsSpecies = residentSpecies
   }
 }

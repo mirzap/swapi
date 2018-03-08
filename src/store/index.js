@@ -11,6 +11,7 @@ const state = {
   defaultPlanet: 1,
   planet: {},
   residents: [],
+  residentsSpecies: {},
   language: 'en',
   unitSystem: 'metric',
   loading: false,

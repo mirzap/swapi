@@ -19,10 +19,11 @@ export default {
         })
     })
   },
-  async fetchResidentsOf ({commit, state, dispatch}, planetId) {
+  fetchResidentsOf ({commit, state, dispatch}, planetId) {
     // Here we store all callbacks so we can execute them concurrently
     let callbacks = []
     const residents = []
+    const residentsSpecies = []
 
     dispatch('fetchPlanet', planetId)
       .then(r => {
@@ -36,11 +37,19 @@ export default {
             callbacks = []
             _.each(response, function (resident) {
               residents.push(resident.data)
+              // Now we fetch species data
+              // let residentKey = _.kebabCase(_.toLower(resident.data.name))
+              let species = {}
+              _.assign(species, { name: _.kebabCase(_.toLower(resident.data.name)), species: resident.data.species })
+
+              residentsSpecies.push(species)
             })
           })
           .then(() => {
-            // Now we can 'receive' residents
+            let species = residentsSpecies
+            console.log('Species callbacks')
             commit(type.RECEIVE_RESIDENTS, residents)
+            commit(type.LOAD_RESIDENT_SPECIES, species)
             commit(type.LOADING_DATA, false)
           })
       })
