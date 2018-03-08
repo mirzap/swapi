@@ -5,6 +5,18 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import VueRx from 'vue-rx'
+import { Observable } from 'rxjs/Observable'
+import { Subscription } from 'rxjs/Subscription' // Disposable if using RxJS4
+import { Subject } from 'rxjs/Subject' // required for domStreams option
+
+// tada!
+Vue.use(VueRx, {
+  Observable,
+  Subscription,
+  Subject
+})
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

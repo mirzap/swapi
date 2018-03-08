@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import SettingsPage from '@/components/SettingsPage'
 import ResidentsPage from '@/components/ResidentsPage'
+import DemoPage from '@/components/DemoPage'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/settings',
       name: 'settings',
       component: SettingsPage
+    },
+    {
+      path: '/demo',
+      name: 'demo',
+      component: DemoPage
     }
   ]
 })
