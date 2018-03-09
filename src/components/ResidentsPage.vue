@@ -24,8 +24,8 @@
               {{resident.hair_color}}
             </td>
             <td>
-              <template v-for="(species, key) in resident.detailedSpecies" @key="key">
-                {{species.name}}
+              <template v-for="(species, key) in resident.detailedSpecies">
+                <span v-localize="{i: `residents.species.${species.name}`}" :key="key"></span>
               </template>
             </td>
           </tr>

@@ -7,5 +7,8 @@ export default {
   },
   [type.RECEIVE_PLANET_DATA] (state, planet) {
     _.assign(state.planet, planet)
+  },
+  [type.SET_LANGUAGE] (state, lang) {
+    state.language = lang
   }
 }

@@ -1,35 +1,46 @@
 <template>
   <div class="settings">
-    <h5 class="title">Language</h5>
+    <h5 class="title" v-localize="{i: 'settings.language.title'}"></h5>
 
-    <p>Here you can easily change your language preference.</p>
+    <p v-localize="{i: 'settings.language.text'}"></p>
 
     <ul class="flags">
-      <li class="active">
+      <li :class="{active: language === 'en'}" @click="setLanguage('en')">
         <icon name="en" :original="true" width="32" height="32" :fill="false"/>
       </li>
-      <li>
+      <li :class="{active: language === 'bs'}" @click="setLanguage('bs')">
         <icon name="bs" :original="true" width="32" height="32" :fill="false"/>
       </li>
     </ul>
 
-    <h5 class="title">Units</h5>
+    <h5 class="title" v-localize="{i: 'settings.units.title'}"></h5>
 
-    <p>Specify the default unit system for the app.</p>
-    <button type="button" class="btn btn-sm btn-outline-secondary active">Metric</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary">Imperial</button>
+    <p v-localize="{i: 'settings.units.text'}"></p>
+    <button type="button" class="btn btn-sm btn-outline-secondary active" v-localize="{i: 'settings.units.metric'}"></button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" v-localize="{i: 'settings.units.imperial'}"></button>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import {mapGetters} from 'vuex'
+
+@Component({
+  name: 'SettingsPage',
+  computed: {
+    ...mapGetters({
+      language: 'getLanguage'
+    })
+  },
+  methods: {
+    setLanguage (lang) {
+      this.$locale({l: lang})
+      this.$store.dispatch('setLanguage', lang)
     }
   }
-}
+})
+export default class SettingsPage extends Vue {}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

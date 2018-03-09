@@ -10,5 +10,8 @@ export default {
   },
   async getResidentsOf ({state, dispatch}, planetId) {
     await dispatch('fetchPlanet', `planets/${planetId}`)
+  },
+  setLanguage ({commit}, lang) {
+    commit(type.SET_LANGUAGE, lang)
   }
 }

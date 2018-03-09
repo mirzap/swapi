@@ -7,5 +7,8 @@ export default {
   },
   isLoading: state => {
     return state.loading
+  },
+  getLanguage: state => {
+    return state.language
   }
 }
