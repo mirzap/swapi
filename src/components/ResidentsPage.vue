@@ -2,20 +2,20 @@
     <div>
       <loader :loading="loading" color="#4c555a"></loader>
       <template v-if="!loading">
-        <h4>Showing residents of planet {{planet.name}}</h4>
+        <h4 class="title">Showing residents of planet {{planet.name}}</h4>
 
-        <table class="table table-striped">
+        <table class="table table-striped" v-if="!loading">
           <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Height</th>
-            <th scope="col">Weight</th>
-            <th scope="col" style="text-align: left">Hair Color</th>
-            <th scope="col">Species</th>
-          </tr>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Height</th>
+              <th scope="col">Weight</th>
+              <th scope="col" style="text-align: left">Hair Color</th>
+              <th scope="col">Species</th>
+            </tr>
           </thead>
-          <tbody>
-          <tr v-for="(resident,key) in residents" v-bind:key="key">
+        <tbody>
+          <tr v-for="(resident,key) in planet.detailedResidents" v-bind:key="key">
             <td>{{resident.name}}</td>
             <td>{{resident.height}}</td>
             <td>{{resident.mass}}</td>
@@ -23,9 +23,13 @@
               <span class="color"></span>
               {{resident.hair_color}}
             </td>
-            <td>x</td>
+            <td>
+              <template v-for="(species, key) in resident.detailedSpecies" @key="key">
+                {{species.name}}
+              </template>
+            </td>
           </tr>
-          </tbody>
+        </tbody>
         </table>
       </template>
     </div>
@@ -34,7 +38,7 @@
 <script>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import {mapState, mapGetters, mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import Loader from 'vue-spinner/src/PulseLoader.vue'
 
 // App components
@@ -44,29 +48,27 @@ import Layout from '@/components/Layout'
   name: 'ResidentsPage',
   components: { Layout, Loader },
   computed: {
-    ...mapState({
-      planet: state => state.planet,
-      loading: state => state.loading
-    }),
     ...mapGetters({
-      residents: 'getResidents'
+      defaultPlanet: 'getDefaultPlanet',
+      planet: 'getPlanet',
+      loading: 'isLoading'
     })
   },
   methods: {
-    ...mapActions({
-      getResidentsOf: 'fetchResidentsOf'
-    })
+    ...mapActions({ getResidentsOf: 'getResidentsOf' })
   }
 })
 export default class ResidentsPage extends Vue {
   created () {
-    this.getResidentsOf(1)
+    this.getResidentsOf(this.defaultPlanet)
   }
-  mounted () {}
 }
 </script>
 
 <style scoped>
+  .title {
+    padding: 10px 0 15px;
+  }
   .color {
     width: 20px;
     height: 20px;
