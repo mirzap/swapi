@@ -5,8 +5,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import * as svgicon from 'vue-svgicon'
+import './assets/js/index'
 
 Vue.config.productionTip = false
+
+// Default tag name is 'svgicon'
+Vue.use(svgicon, {
+  tagName: 'icon'
+})
 
 // eslint-disable no-new
 // eslint-disable no-unused-vars

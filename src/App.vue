@@ -58,6 +58,9 @@ export default class App extends Vue {}
     border-radius: 6px;
     min-height: 300px;
   }
+  li.nav-item:first-child a {
+    padding-left: 0;
+  }
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
