@@ -15,23 +15,41 @@
 // Global styles
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700');
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   background: #fafbfc;
   font-family: 'Roboto', "Proxima Nova", "Helvetica Neue", sans-serif;
 }
+
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   color: #4c555a;
   font-family: 'Roboto', "Proxima Nova", "Helvetica Neue", sans-serif;
 }
+
 div,button,p,span,strong,a {
   font-family: 'Roboto', "Proxima Nova", "Helvetica Neue", sans-serif;
+}
+
+.colorbox {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  vertical-align: middle;
+  margin-left: 14px;
+  border-radius: 4px;
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 // Navigation menu
 .nav {
   border-bottom: 1px solid rgba(0,0,0,.14);
-
   .nav-link {
     color: rgba(0,0,0,.65);
 

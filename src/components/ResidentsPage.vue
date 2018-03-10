@@ -26,8 +26,7 @@
               <span v-else>{{resident.mass}}</span>
             </td>
             <td style="text-align: left">
-              <span class="color"></span>
-              {{resident.hair_color}}
+              <span v-html="$options.filters.colorize($options.filters.split(resident.hair_color, ','))"></span>
             </td>
             <td>
               <template v-for="(species, key) in resident.detailedSpecies">
@@ -43,6 +42,7 @@
 
 <script>
 import Vue from 'vue'
+import _ from 'lodash'
 import Component from 'vue-class-component'
 import {mapActions, mapGetters} from 'vuex'
 import Loader from 'vue-spinner/src/PulseLoader.vue'
@@ -59,6 +59,30 @@ import Layout from '@/components/Layout'
       planet: 'getPlanet',
       loading: 'isLoading'
     })
+  },
+  filters: {
+    split (str, separator) {
+      separator = separator || ''
+      if (_.isString(str)) {
+        return str.replace(/\s/g, '').split(separator)
+      } else {
+        return str
+      }
+    },
+    colorize (colors) {
+      const validColors = {blond: '#d8b041', brown: 'brown', black: 'black', grey: 'grey'}
+      let result = ''
+
+      colors.forEach((color) => {
+        if (color in validColors) {
+          result += `<span class="colorbox" style="background: ${validColors[color]};"></span> ${color}`
+        } else {
+          result = color
+        }
+      })
+
+      return result
+    }
   },
   methods: {
     ...mapActions({ getResidentsOf: 'getResidentsOf' })

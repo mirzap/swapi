@@ -9,6 +9,9 @@ import Localize from 'v-localize'
 import * as svgicon from 'vue-svgicon'
 import './assets/js/index'
 
+// Filters
+// import split from './utils/filters/split'
+
 Vue.config.productionTip = false
 
 Vue.use(Localize)
@@ -123,6 +126,17 @@ let localize = Localize.config({
       }
     }
   }
+})
+
+Vue.filter('colorize', function (colors) {
+  colors = colors.toString().split(',')
+  let result = ''
+
+  colors.forEach((color) => {
+    result += `<span class="colorbox" style="background-color: ${color};"></span> ${color}`
+  })
+
+  return result
 })
 
 // eslint-disable no-new
