@@ -6,15 +6,15 @@
       </template>
 
       <template slot="content">
-        <ul class="nav">
+        <ul class="nav mb-4">
           <li class="nav-item">
             <router-link :to="{ name: 'residents' }" class="nav-link">
-              Residents
+              <span v-localize="{i: 'navigation.residents'}"></span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link :to="{ name: 'settings' }" class="nav-link">
-              Settings
+              <span v-localize="{i: 'navigation.settings'}"></span>
             </router-link>
           </li>
           <li class="nav-item">
@@ -68,5 +68,6 @@ export default class App extends Vue {}
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin-bottom: 30px;
 }
 </style>

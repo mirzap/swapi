@@ -24,16 +24,34 @@ let localize = Localize.config({
   localizations: {
     'en': {
       residents: {
+        title: 'Showing residents of ',
+        table: {
+          rows: {
+            name: 'Name',
+            height: 'Height',
+            weight: 'Weight',
+            hairColor: 'Hair Color',
+            species: 'Species'
+          },
+          weight: {
+            unknown: 'Unknown'
+          },
+          hairColor: {
+            blond: 'blond',
+            none: 'none',
+            brown: 'brown',
+            grey: 'grey',
+            black: 'black'
+          }
+        },
         species: {
           Human: 'Human',
           Droid: 'Droid'
         }
       },
-      species: {
-        Human: 'Humans'
-      },
-      header: {
-        title: 'English'
+      navigation: {
+        residents: 'Residents',
+        settings: 'Settings'
       },
       settings: {
         language: {
@@ -45,11 +63,32 @@ let localize = Localize.config({
           text: 'Specify the default unit system for the app.',
           metric: 'Metric',
           imperial: 'Imperial'
+        },
+        storage: {
+          title: 'Storage',
+          text: 'Decide whether you want to use local storage to persist the data.',
+          labels: {
+            yes: 'Use local storage',
+            no: 'Don\'t use local storage'
+          }
         }
       }
     },
     'bs': {
       residents: {
+        title: 'Lista stanovnika planete ',
+        table: {
+          rows: {
+            name: 'Ime',
+            height: 'Visina',
+            weight: 'Težina',
+            hairColor: 'Boja očiju',
+            species: 'Vrsta'
+          },
+          weight: {
+            unknown: 'Nepoznato'
+          }
+        },
         species: {
           Human: 'Čovjek',
           Droid: 'Robot'
@@ -58,8 +97,9 @@ let localize = Localize.config({
       species: {
         Human: 'Covjek'
       },
-      header: {
-        title: 'Engleski'
+      navigation: {
+        residents: 'Stanovnici',
+        settings: 'Postavke'
       },
       settings: {
         language: {
@@ -71,6 +111,14 @@ let localize = Localize.config({
           text: 'Odaberite sistem mjernih jedinica koji želite koristiti.',
           metric: 'Metrični',
           imperial: 'Imperijalni'
+        },
+        storage: {
+          title: 'Lokalna memorija',
+          text: 'Da li želite koristiti lokalnu memoriju za snimanje podataka?',
+          labels: {
+            yes: 'Koristi lokalnu memoriju',
+            no: 'Ne želim koristiti lokalnu memoriju'
+          }
         }
       }
     }
