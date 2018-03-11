@@ -42,6 +42,28 @@ const utils = {
       })
 
       return colors
+    },
+    toMeters (value) {
+      const meters = value / 100
+
+      return `${meters} m`
+    },
+    toFeet (value) {
+      const realFeet = ((value * 0.393700) / 12)
+      const feet = Math.floor(realFeet)
+      const inches = Math.round((realFeet - feet) * 12)
+
+      return `${feet}' ${inches}"`
+    },
+    toKilograms (value) {
+      return `${value} kg`
+    },
+    toPounds (value) {
+      // 1kg is equal to 2.2046226218 lbs
+      const lbs = 2.2046226218
+      let conversion = Math.round((value * lbs) * 100) / 100
+
+      return `${conversion} lbs`
     }
   }
 }

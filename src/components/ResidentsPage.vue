@@ -23,7 +23,7 @@
             <td>{{ height(resident.height) }}</td>
             <td>
               <span v-if="resident.mass === 'unknown'" v-localize="{i: 'residents.table.weight.unknown'}"></span>
-              <span v-else>{{resident.mass | units('kg', 'lb', true)}}</span>
+              <span v-else>{{ weight(resident.mass) }}</span>
             </td>
             <td style="text-align: left">
               <span v-html="colorbox(resident.hair_color)"></span>
@@ -68,22 +68,18 @@ import utils from '@/utils/mixins/utils'
     ...mapActions({ getResidentsOf: 'getResidentsOf' }),
     height (value) {
       // check default unit system, if metric convert cm => m
-      if (this.unitSystem === 'metric') return this.toMeters(value)
+      if (this.unitSystem === 'metric') {
+        return this.toMeters(value)
+      }
 
       return this.toFeet(value)
-      // if default unit system is imperial, convert cm => lbs
     },
-    toMeters (value) {
-      const meters = value / 100
+    weight (value) {
+      if (this.unitSystem === 'metric') {
+        return this.toKilograms(value)
+      }
 
-      return `${meters} m`
-    },
-    toFeet (value) {
-      const realFeet = ((value * 0.393700) / 12)
-      const feet = Math.floor(realFeet)
-      const inches = Math.round((realFeet - feet) * 12)
-
-      return `${feet}' ${inches}"`
+      return this.toPounds(value)
     }
   }
 })
