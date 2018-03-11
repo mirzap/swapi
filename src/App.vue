@@ -6,18 +6,7 @@
       </template>
 
       <template slot="content">
-        <ul class="nav mb-4">
-          <li class="nav-item">
-            <router-link :to="{ name: 'residents' }" class="nav-link">
-              <span v-localize="{i: 'navigation.residents'}"></span>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link :to="{ name: 'settings' }" class="nav-link">
-              <span v-localize="{i: 'navigation.settings'}"></span>
-            </router-link>
-          </li>
-        </ul>
+        <navigation/>
         <router-view/>
       </template>
     </base-layout>
@@ -30,10 +19,11 @@ import Component from 'vue-class-component'
 
 // Components
 import BaseLayout from '@/components/Layout'
+import Navigation from '@/components/Navigation'
 
 @Component({
   name: 'App',
-  components: { BaseLayout }
+  components: { BaseLayout, Navigation }
 })
 export default class App extends Vue {}
 </script>
@@ -52,9 +42,6 @@ export default class App extends Vue {}
     box-shadow: 0 2px 6px rgba(0,0,0,.04);
     border-radius: 6px;
     min-height: 300px;
-  }
-  li.nav-item:first-child a {
-    padding-left: 0;
   }
 }
 #app {
