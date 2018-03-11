@@ -19,11 +19,11 @@
           </thead>
         <tbody>
           <tr v-for="(resident,key) in planet.detailedResidents" v-bind:key="key">
-            <td>{{resident.name}}</td>
-            <td>{{resident.height}}</td>
+            <td>{{ resident.name }}</td>
+            <td>{{ height(resident.height) }}</td>
             <td>
               <span v-if="resident.mass === 'unknown'" v-localize="{i: 'residents.table.weight.unknown'}"></span>
-              <span v-else>{{resident.mass}}</span>
+              <span v-else>{{resident.mass | units('kg', 'lb', true)}}</span>
             </td>
             <td style="text-align: left">
               <span v-html="colorbox(resident.hair_color)"></span>
@@ -60,11 +60,31 @@ import utils from '@/utils/mixins/utils'
     ...mapGetters({
       defaultPlanet: 'getDefaultPlanet',
       planet: 'getPlanet',
-      loading: 'isLoading'
+      loading: 'isLoading',
+      unitSystem: 'getUnitSystem'
     })
   },
   methods: {
-    ...mapActions({ getResidentsOf: 'getResidentsOf' })
+    ...mapActions({ getResidentsOf: 'getResidentsOf' }),
+    height (value) {
+      // check default unit system, if metric convert cm => m
+      if (this.unitSystem === 'metric') return this.toMeters(value)
+
+      return this.toFeet(value)
+      // if default unit system is imperial, convert cm => lbs
+    },
+    toMeters (value) {
+      const meters = value / 100
+
+      return `${meters} m`
+    },
+    toFeet (value) {
+      const realFeet = ((value * 0.393700) / 12)
+      const feet = Math.floor(realFeet)
+      const inches = Math.round((realFeet - feet) * 12)
+
+      return `${feet}' ${inches}"`
+    }
   }
 })
 export default class ResidentsPage extends Vue {

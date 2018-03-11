@@ -10,5 +10,8 @@ export default {
   },
   getLanguage: state => {
     return state.language
+  },
+  getUnitSystem: state => {
+    return state.unitSystem
   }
 }
