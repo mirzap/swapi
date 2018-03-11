@@ -13,8 +13,8 @@
             <tr>
               <th scope="col"><span v-localize="{i: 'residents.table.rows.name'}"></span></th>
               <th scope="col"><span v-localize="{i: 'residents.table.rows.height'}"></span></th>
-              <th scope="col"><span v-localize="{i: 'residents.table.rows.weight'}"></span></th>
-              <th scope="col" style="text-align: left"><span v-localize="{i: 'residents.table.rows.hairColor'}"></span></th>
+              <th scope="col" style="min-width: 135px;"><span v-localize="{i: 'residents.table.rows.weight'}"></span></th>
+              <th scope="col" style="text-align: left; min-width: 168px;"><span v-localize="{i: 'residents.table.rows.hairColor'}"></span></th>
               <th scope="col"><span v-localize="{i: 'residents.table.rows.species'}"></span></th>
             </tr>
             </thead>
@@ -26,7 +26,7 @@
                 <span v-if="resident.mass === 'unknown'" v-localize="{i: 'residents.table.weight.unknown'}"></span>
                 <span v-else>{{ weight(resident.mass) }}</span>
               </td>
-              <td style="text-align: left">
+              <td style="text-align: left;">
                 <span v-html="colorbox(resident.hair_color)"></span>
               </td>
               <td>
@@ -103,11 +103,11 @@ export default class ResidentsPage extends Vue {
     }
   }
 }
-.color {
-  width: 20px;
-  height: 20px;
-  background: red;
-  display: inline-block;
-  vertical-align: text-top;
+table {
+  thead {
+    th {
+      min-width: 120px;
+    }
+  }
 }
 </style>
