@@ -3,39 +3,30 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import _ from 'lodash'
 import router from './router'
 import store from './store'
 import Localize from 'v-localize'
-import * as svgicon from 'vue-svgicon'
+import * as SvgIcon from 'vue-svgicon'
 
 // Assets (SVGs)
 import './assets/js/index'
 // Filters
-import filters from './utils/filters'
+import Filters from './utils/filters'
 // Locales
-import localize from './utils/locale'
+import locale from './utils/locale'
 
 Vue.config.productionTip = false
 
 Vue.use(Localize)
-Vue.use(svgicon, { tagName: 'icon' })
-
-_.each(filters, function (filter, key) {
-  if (Vue.filter(key)) {
-    console.warn(`Filter [${key}} has already been installed.`)
-  } else {
-    console.info(`Filter [${key}] has been installed.`)
-    Vue.filter(key, filter)
-  }
-})
+Vue.use(Filters)
+Vue.use(SvgIcon, { tagName: 'icon' })
 
 // eslint-disable no-new
 const app = new Vue({
   el: '#app',
   router,
   store,
-  localize,
+  localize: locale,
   components: { App },
   template: '<App/>'
 })

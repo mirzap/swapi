@@ -42,7 +42,6 @@
 
 <script>
 import Vue from 'vue'
-import _ from 'lodash'
 import Component from 'vue-class-component'
 import {mapActions, mapGetters} from 'vuex'
 import Loader from 'vue-spinner/src/PulseLoader.vue'
@@ -50,13 +49,13 @@ import Loader from 'vue-spinner/src/PulseLoader.vue'
 // App components
 import Layout from '@/components/Layout'
 
-import locale from '@/utils/mixins/locale'
+// Mixins
 import utils from '@/utils/mixins/utils'
 
 @Component({
   name: 'ResidentsPage',
   components: { Layout, Loader },
-  mixins: [locale, utils],
+  mixins: [utils],
   computed: {
     ...mapGetters({
       defaultPlanet: 'getDefaultPlanet',
@@ -64,50 +63,8 @@ import utils from '@/utils/mixins/utils'
       loading: 'isLoading'
     })
   },
-  filters: {
-    split (str, separator) {
-      separator = separator || ''
-      if (_.isString(str)) {
-        return str.replace(/\s/g, '').split(separator)
-      }
-      return str
-    }
-  },
   methods: {
-    ...mapActions({ getResidentsOf: 'getResidentsOf' }),
-    colorbox (color) {
-      let colors = this.getHairColorLocale(color)
-      let result = ''
-
-      colors.forEach(element => {
-        if (element.color === 'none') result = element.trans
-        else result += `<span class="colorbox" style="background: ${element.color};"></span> ${element.trans}`
-      })
-
-      return result
-    },
-    getHairColorLocale (color) {
-      const validColors = this.getValidColors()
-      let colors = this.$options.filters.split(color, ',')
-      let self = this
-
-      // Normalize the data, add locale for each color
-      colors = _.map(colors, function (color) {
-        if (!(color in validColors)) {
-          return {
-            'color': 'none',
-            'trans': self.$locale({i: `residents.table.hairColor.none`})
-          }
-        }
-
-        return {
-          'color': validColors[color],
-          'trans': self.$locale({i: `residents.table.hairColor.${color}`})
-        }
-      })
-
-      return colors
-    }
+    ...mapActions({ getResidentsOf: 'getResidentsOf' })
   }
 })
 export default class ResidentsPage extends Vue {
