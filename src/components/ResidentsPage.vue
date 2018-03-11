@@ -26,7 +26,7 @@
               <span v-else>{{resident.mass}}</span>
             </td>
             <td style="text-align: left">
-              <span v-html="$options.filters.colorize($options.filters.split(resident.hair_color, ','))"></span>
+              <span v-html="colorbox(resident.hair_color)"></span>
             </td>
             <td>
               <template v-for="(species, key) in resident.detailedSpecies">
@@ -50,9 +50,12 @@ import Loader from 'vue-spinner/src/PulseLoader.vue'
 // App components
 import Layout from '@/components/Layout'
 
+import loc from '@/utils/mixins/locale'
+
 @Component({
   name: 'ResidentsPage',
   components: { Layout, Loader },
+  mixins: [loc],
   computed: {
     ...mapGetters({
       defaultPlanet: 'getDefaultPlanet',
@@ -68,24 +71,43 @@ import Layout from '@/components/Layout'
       } else {
         return str
       }
-    },
-    colorize (colors) {
-      const validColors = {blond: '#d8b041', brown: 'brown', black: 'black', grey: 'grey'}
-      let result = ''
-
-      colors.forEach((color) => {
-        if (color in validColors) {
-          result += `<span class="colorbox" style="background: ${validColors[color]};"></span> ${color}`
-        } else {
-          result = color
-        }
-      })
-
-      return result
     }
   },
   methods: {
-    ...mapActions({ getResidentsOf: 'getResidentsOf' })
+    ...mapActions({ getResidentsOf: 'getResidentsOf' }),
+    colorbox (color) {
+      let colors = this.getHairColorLocale(color)
+      let result = ''
+
+      colors.forEach(element => {
+        if (element.color === 'none') result = element.trans
+        else result += `<span class="colorbox" style="background: ${element.color};"></span> ${element.trans}`
+      })
+
+      return result
+    },
+    getHairColorLocale (color) {
+      const validColors = {blond: '#d8b041', brown: 'brown', black: 'black', grey: 'grey'}
+      let colors = this.$options.filters.split(color, ',')
+      let self = this
+
+      // Normalize the data, add locale for each color
+      colors = _.map(colors, function (color) {
+        if (!(color in validColors)) {
+          return {
+            'color': 'none',
+            'trans': self.$locale({i: `residents.table.hairColor.none`})
+          }
+        }
+
+        return {
+          'color': validColors[color],
+          'trans': self.$locale({i: `residents.table.hairColor.${color}`})
+        }
+      })
+
+      return colors
+    }
   }
 })
 export default class ResidentsPage extends Vue {

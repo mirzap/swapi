@@ -23,7 +23,7 @@ Vue.use(svgicon, {
 let localize = Localize.config({
   default: store.state.language,
   available: ['en', 'bs'],
-  fallback: '?',
+  fallback: 'en',
   localizations: {
     'en': {
       residents: {
@@ -44,7 +44,8 @@ let localize = Localize.config({
             none: 'none',
             brown: 'brown',
             grey: 'grey',
-            black: 'black'
+            black: 'black',
+            white: 'white'
           }
         },
         species: {
@@ -85,11 +86,19 @@ let localize = Localize.config({
             name: 'Ime',
             height: 'Visina',
             weight: 'Težina',
-            hairColor: 'Boja očiju',
+            hairColor: 'Boja kose',
             species: 'Vrsta'
           },
           weight: {
             unknown: 'Nepoznato'
+          },
+          hairColor: {
+            blond: 'plava',
+            none: 'nije poznato',
+            brown: 'smeđa',
+            grey: 'siva',
+            black: 'crna',
+            white: 'bijela'
           }
         },
         species: {
