@@ -50,12 +50,13 @@ import Loader from 'vue-spinner/src/PulseLoader.vue'
 // App components
 import Layout from '@/components/Layout'
 
-import loc from '@/utils/mixins/locale'
+import locale from '@/utils/mixins/locale'
+import utils from '@/utils/mixins/utils'
 
 @Component({
   name: 'ResidentsPage',
   components: { Layout, Loader },
-  mixins: [loc],
+  mixins: [locale, utils],
   computed: {
     ...mapGetters({
       defaultPlanet: 'getDefaultPlanet',
@@ -68,9 +69,8 @@ import loc from '@/utils/mixins/locale'
       separator = separator || ''
       if (_.isString(str)) {
         return str.replace(/\s/g, '').split(separator)
-      } else {
-        return str
       }
+      return str
     }
   },
   methods: {
@@ -87,7 +87,7 @@ import loc from '@/utils/mixins/locale'
       return result
     },
     getHairColorLocale (color) {
-      const validColors = {blond: '#d8b041', brown: 'brown', black: 'black', grey: 'grey'}
+      const validColors = this.getValidColors()
       let colors = this.$options.filters.split(color, ',')
       let self = this
 
