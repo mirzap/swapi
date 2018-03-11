@@ -13,7 +13,7 @@ export default {
     const localStorage = JSON.parse(window.localStorage.getItem('vuex'))
 
     // Make API requests only if no previous data in localStorage
-    if (_.isEmpty(localStorage)) {
+    if (_.isEmpty(localStorage) || _.isEmpty(localStorage.planet)) {
       await dispatch('fetchPlanet', `planets/${planetId}`)
     }
   },

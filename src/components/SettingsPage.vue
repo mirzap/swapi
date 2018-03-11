@@ -39,13 +39,23 @@
 
         <p v-localize="{i: 'settings.storage.text'}"></p>
 
-        <div class="storage-radio-btn custom-control custom-radio custom-control-inline">
-          <input type="radio" id="storageYes" name="storage" class="custom-control-input storage-input">
-          <label class="custom-control-label storage-label" for="storageYes" v-localize="{i: 'settings.storage.labels.yes'}"></label>
-        </div>
-        <div class="storage-radio-btn custom-control custom-radio custom-control-inline">
-          <input type="radio" id="storageNo" name="storage" class="custom-control-input storage-input" checked>
-          <label class="custom-control-label storage-label" for="storageNo" v-localize="{i: 'settings.storage.labels.no'}"></label>
+        <button type="button" class="btn btn-danger"
+                v-localize="{i: 'settings.storage.confirmation.button'}"
+                @click="showConfirmation(true)">
+        </button>
+
+        <div class="delete-confirmation" v-if="confirmation">
+          <p class="font-weight-bold" v-localize="{i: 'settings.storage.confirmation.text'}"></p>
+          <div class="delete-btn-group">
+            <button type="button" class="btn btn-danger"
+                    v-localize="{i: 'settings.storage.confirmation.yes'}"
+                    @click="clearLocalStorage()">
+            </button>
+            <button type="button" class="btn btn-success"
+                    v-localize="{i: 'settings.storage.confirmation.cancel'}"
+                    @click="showConfirmation(false)">
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -72,32 +82,34 @@ import {mapGetters} from 'vuex'
     },
     setUnitSystem (system) {
       this.$store.dispatch('setUnitSystem', system)
+    },
+    showConfirmation (show) {
+      this.confirmation = show
+    },
+    clearLocalStorage () {
+      // Better way would be to reset the state via mutation to it's default values
+      // But this will do fine for the test task :)
+      window.localStorage.clear()
+      this.confirmation = false
     }
   }
 })
-export default class SettingsPage extends Vue {}
+export default class SettingsPage extends Vue {
+  confirmation = false
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.storage-radio-btn {
-  > .storage-input {
-    &:checked {
-      ~ .storage-label {
-        &:before {
-          background: #000!important;
-        }
-        &:after {
-          background: #FFD700;
-          border-radius: 50%;
-          width: 8px;
-          height: 8px;
-          margin-top: 4px;
-          margin-left: 4px;
-        }
-      }
-    }
-  }
+$red: #e74c3c;
+$green: #27ae60;
+
+.delete-confirmation {
+  margin: 20px auto;
+  padding: 20px 10px;
+  border: 1px solid $red;
+  background: lighten($red, 36%);
+  border-radius: 6px;
 }
 .title {
   text-align: left;
@@ -116,6 +128,18 @@ ul.flags {
   }
 }
 button {
+  &.btn-danger {
+    background-color: $red;
+  }
+  &.success {
+    background-color: $green;
+    border-color: darken($green, 15%);
+
+    &:hover {
+      background-color: darken($green, 7%);
+      border-color: darken($green, 3%);
+    }
+  }
   .active {
     background: #6c757d;
     border-color: #6c757d;

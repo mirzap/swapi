@@ -43,10 +43,12 @@ const en = {
     },
     storage: {
       title: 'Storage',
-      text: 'Decide whether you want to use local storage to persist the data.',
-      labels: {
-        yes: 'Use local storage',
-        no: 'Don\'t use local storage'
+      text: 'Do or do not. There is no try.',
+      confirmation: {
+        text: 'Are you sure you want to nuke local storage?',
+        button: 'Clear local storage',
+        yes: 'Yes, please!',
+        cancel: 'Cancel'
       }
     }
   }

@@ -46,10 +46,12 @@ const bs = {
     },
     storage: {
       title: 'Lokalna memorija',
-      text: 'Da li želite koristiti lokalnu memoriju za snimanje podataka?',
-      labels: {
-        yes: 'Koristi lokalnu memoriju',
-        no: 'Ne želim koristiti lokalnu memoriju'
+      text: 'Uradite ili ne. Nema pokušaja.',
+      confirmation: {
+        text: 'Da li ste potpuno sigurni da želite isprazniti lokalnu memoriju?',
+        button: 'Isprazni lokalnu memoriju',
+        yes: 'Da, izbriši!',
+        cancel: 'Odustani'
       }
     }
   }
