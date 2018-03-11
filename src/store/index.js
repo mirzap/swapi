@@ -11,7 +11,7 @@ const state = {
   defaultPlanet: 1,
   planet: {},
   language: 'en',
-  unitSystem: 'imperial',
+  unitSystem: 'metric',
   loading: false,
   settingsUpdated: false
 }

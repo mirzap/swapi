@@ -22,8 +22,14 @@
         <h5 class="title" v-localize="{i: 'settings.units.title'}"></h5>
 
         <p v-localize="{i: 'settings.units.text'}"></p>
-        <button type="button" class="btn btn-sm btn-outline-secondary active" v-localize="{i: 'settings.units.metric'}"></button>
-        <button type="button" class="btn btn-sm btn-outline-secondary" v-localize="{i: 'settings.units.imperial'}"></button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" :class="{active: unitSystem === 'metric'}"
+                @click="setUnitSystem('metric')"
+                v-localize="{i: 'settings.units.metric'}">
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" :class="{active: unitSystem === 'imperial'}"
+                @click="setUnitSystem('imperial')"
+                v-localize="{i: 'settings.units.imperial'}">
+        </button>
       </div>
     </div>
 
@@ -55,13 +61,17 @@ import {mapGetters} from 'vuex'
   name: 'SettingsPage',
   computed: {
     ...mapGetters({
-      language: 'getLanguage'
+      language: 'getLanguage',
+      unitSystem: 'getUnitSystem'
     })
   },
   methods: {
     setLanguage (lang) {
       this.$locale({l: lang})
       this.$store.dispatch('setLanguage', lang)
+    },
+    setUnitSystem (system) {
+      this.$store.dispatch('setUnitSystem', system)
     }
   }
 })

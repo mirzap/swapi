@@ -13,5 +13,8 @@ export default {
   },
   setLanguage ({commit}, lang) {
     commit(type.SET_LANGUAGE, lang)
+  },
+  setUnitSystem ({commit}, system) {
+    commit(type.SET_UNIT_SYSTEM, system)
   }
 }

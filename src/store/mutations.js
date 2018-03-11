@@ -10,5 +10,8 @@ export default {
   },
   [type.SET_LANGUAGE] (state, lang) {
     state.language = lang
+  },
+  [type.SET_UNIT_SYSTEM] (state, system) {
+    state.unitSystem = system
   }
 }
