@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import api from '@/api'
 import * as type from './mutation-types'
 
@@ -9,7 +10,12 @@ export default {
     commit(type.LOADING_DATA, false)
   },
   async getResidentsOf ({state, dispatch}, planetId) {
-    await dispatch('fetchPlanet', `planets/${planetId}`)
+    const localStorage = JSON.parse(window.localStorage.getItem('vuex'))
+
+    // Make API requests only if no previous data in localStorage
+    if (_.isEmpty(localStorage)) {
+      await dispatch('fetchPlanet', `planets/${planetId}`)
+    }
   },
   setLanguage ({commit}, lang) {
     commit(type.SET_LANGUAGE, lang)
