@@ -17,11 +17,6 @@
               <span v-localize="{i: 'navigation.settings'}"></span>
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link :to="{ name: 'demo' }" class="nav-link">
-              Demo
-            </router-link>
-          </li>
         </ul>
         <router-view/>
       </template>

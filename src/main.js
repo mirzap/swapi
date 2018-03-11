@@ -7,7 +7,6 @@ import router from './router'
 import store from './store'
 import Localize from 'v-localize'
 import * as SvgIcon from 'vue-svgicon'
-import VueUnits from 'vue-units'
 
 // Assets (SVGs)
 import './assets/js/index'
@@ -20,7 +19,6 @@ Vue.config.productionTip = false
 
 Vue.use(Localize)
 Vue.use(Filters)
-Vue.use(VueUnits)
 Vue.use(SvgIcon, { tagName: 'icon' })
 
 // eslint-disable no-new
